@@ -4,10 +4,16 @@ from main import app
 
 client = TestClient(app)
 
+
 def test_read_main():
     response = client.get("/")
     assert response.status_code == 200
     assert response.json() == {"message": "Hello World"}
+
+def test_read_main_empty_message():
+    # Ошибка при POST запросе без передачи файла
+    response = client.post("/predict")
+    assert response.status_code == 422
     
     
 def test_read_predict_positive():
